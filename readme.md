@@ -1,6 +1,6 @@
-# sheHealth-AI
+# SheHealth-AI
 
-sheHealth-AI is a comprehensive, AI-powered health prediction platform focused on women's health. It utilizes machine learning models to provide predictive insights for various health conditions, accessible through a modern, responsive web interface. 
+SheHealth-AI is a comprehensive, AI-powered health prediction platform focused on women's health. It utilizes machine learning models to provide predictive insights for various health conditions, accessible through a modern, responsive web interface. 
 
 ## 🛠 Tech Stack
 
@@ -35,7 +35,7 @@ sheHealth-ai/
 
 ## 🧠 Machine Learning Models
 
-The trained machine learning models (`.pkl` and `.keras` files) are excluded from this repository via `.gitignore` due to their file size. To run the backend prediction services correctly, you **must download the model artifacts** from the link below and place them in their respective `models/` directories.
+The trained machine learning models (`.keras` files) are excluded from this repository via `.gitignore` due to their file size. To run the backend prediction services correctly, you **must download the model artifacts** from the link below and place them in their respective `models/` directories.
 
 > [!IMPORTANT]
 > Without these model files, the backend services will fail to initialize or provide accurate predictions.
@@ -45,11 +45,7 @@ The trained machine learning models (`.pkl` and `.keras` files) are excluded fro
 ### Model Placement Guide:
 | Backend Service | Model File(s) Required | Target Directory |
 | :--- | :--- | :--- |
-| **Anemia** | `*.pkl` or `*.joblib` | `backend/anemia-backend-model/models/` |
 | **Breast Cancer** | `resnet50_ultrasound_final.keras` | `backend/breast-cancer-backend-model/models/` |
-| **Osteoporosis** | `*.pkl` or `*.joblib` | `backend/osteoporosis-backend-model/models/` |
-| **PCOS** | `*.pkl` or `*.joblib` | `backend/pcos-backend-model/models/` |
-| **Thyroid** | `*.pkl` or `*.joblib` | `backend/thyroid-backend-model/models/` |
 
 ## 🚀 Getting Started
 
