@@ -1,6 +1,6 @@
-# SheHealth-AI
+# 💗 SheHealth-AI
 
-SheHealth-AI is a comprehensive, AI-powered health prediction platform focused on women's health. It utilizes machine learning models to provide predictive insights for various health conditions, accessible through a modern, responsive web interface. 
+💖 SheHealth-AI is a comprehensive, AI-powered health prediction platform focused on women's health. It utilizes machine learning models to provide predictive insights for various health conditions, accessible through a modern, responsive web interface. 
 
 ## 🛠 Tech Stack
 
