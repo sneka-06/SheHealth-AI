@@ -1,0 +1,141 @@
+{
+  "model_version": "1.0.0",
+  "training_date": "2026-02-10 20:31:01",
+  "python_version": "3.10.8 (tags/v3.10.8:aaaf517, Oct 11 2022, 16:50:30) [MSC v.1933 64 bit (AMD64)]",
+  "dataset_info": {
+    "file": "pcos_dataset.csv",
+    "samples": 1000,
+    "features": 10,
+    "feature_names": [
+      "Age",
+      "BMI",
+      "Menstrual_Irregularity",
+      "Testosterone_Level(ng/dL)",
+      "Antral_Follicle_Count",
+      "BMI_Category",
+      "Testosterone_High",
+      "AFC_High",
+      "Age_BMI_Interaction",
+      "Testosterone_AFC_Ratio"
+    ],
+    "target": "PCOS_Diagnosis",
+    "class_distribution": {
+      "negative": 801,
+      "positive": 199
+    }
+  },
+  "best_model": {
+    "algorithm": "Random Forest",
+    "hyperparameters": {
+      "max_depth": 3,
+      "min_samples_leaf": 1,
+      "min_samples_split": 5,
+      "n_estimators": 200
+    },
+    "cv_metrics": {
+      "accuracy": {
+        "mean": 0.9988,
+        "std": 0.0025
+      },
+      "precision": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "recall": {
+        "mean": 0.9938,
+        "std": 0.0125
+      },
+      "f1": {
+        "mean": 0.9968,
+        "std": 0.0063
+      },
+      "roc_auc": {
+        "mean": 0.9999,
+        "std": 0.0003
+      }
+    },
+    "test_metrics": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "pr_auc": 1.0
+    },
+    "test_metrics_at_optimal_threshold": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    }
+  },
+  "optimal_threshold": 0.46,
+  "feature_importance": {
+    "type": "tree_importance",
+    "values": {
+      "Age": 0.0017028622967423764,
+      "BMI": 0.2069040056847178,
+      "Menstrual_Irregularity": 0.3220628880392649,
+      "Testosterone_Level(ng/dL)": 0.10770184910959195,
+      "Antral_Follicle_Count": 0.08348363161779115,
+      "BMI_Category": 0.19129779999056679,
+      "Testosterone_High": 0.005454855887081174,
+      "AFC_High": 0.04533654538151992,
+      "Age_BMI_Interaction": 0.009243711021049301,
+      "Testosterone_AFC_Ratio": 0.026811850971674545
+    },
+    "permutation": {
+      "Age": 0.0,
+      "BMI": 0.10803453735387646,
+      "Menstrual_Irregularity": 0.46504993359058455,
+      "Testosterone_Level(ng/dL)": 0.24113901816478553,
+      "Antral_Follicle_Count": 0.0742688738715739,
+      "BMI_Category": 0.17121084201350265,
+      "Testosterone_High": 0.0,
+      "AFC_High": 0.062348915201837156,
+      "Age_BMI_Interaction": 0.0,
+      "Testosterone_AFC_Ratio": 0.0
+    }
+  },
+  "all_models_comparison": [
+    {
+      "Model": "Logistic Regression",
+      "CV_F1_Mean": 0.8457,
+      "CV_F1_Std": 0.0616,
+      "CV_Recall_Mean": 0.95,
+      "Optimal_Threshold": 0.65,
+      "Test_Recall": 1.0,
+      "Test_F1": 0.9195,
+      "Test_Accuracy": 0.965,
+      "Test_Precision": 0.8511,
+      "Test_ROC_AUC": 0.9909,
+      "Test_PR_AUC": 0.9634
+    },
+    {
+      "Model": "Random Forest",
+      "CV_F1_Mean": 0.9968,
+      "CV_F1_Std": 0.0063,
+      "CV_Recall_Mean": 0.9938,
+      "Optimal_Threshold": 0.46,
+      "Test_Recall": 1.0,
+      "Test_F1": 1.0,
+      "Test_Accuracy": 1.0,
+      "Test_Precision": 1.0,
+      "Test_ROC_AUC": 1.0,
+      "Test_PR_AUC": 1.0
+    },
+    {
+      "Model": "XGBoost",
+      "CV_F1_Mean": 0.9968,
+      "CV_F1_Std": 0.0063,
+      "CV_Recall_Mean": 0.9938,
+      "Optimal_Threshold": 0.05,
+      "Test_Recall": 1.0,
+      "Test_F1": 1.0,
+      "Test_Accuracy": 1.0,
+      "Test_Precision": 1.0,
+      "Test_ROC_AUC": 1.0,
+      "Test_PR_AUC": 1.0
+    }
+  ]
+}

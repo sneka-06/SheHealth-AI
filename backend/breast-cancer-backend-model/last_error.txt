@@ -1,0 +1,1 @@
+Success: {'predicted_class': 'unknown', 'confidence': 0.0, 'risk_level': 'Invalid Input', 'diagnosis': 'Image is too flat/uniform (Std Dev: 0.0). Ultrasounds have more contrast.', 'class_probabilities': {'benign': 0.0, 'malignant': 0.0, 'normal': 0.0}, 'low_confidence': True}

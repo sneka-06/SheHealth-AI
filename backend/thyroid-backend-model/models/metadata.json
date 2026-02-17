@@ -1,0 +1,112 @@
+{
+  "model_version": "1.0.0",
+  "best_model": "RandomForest",
+  "optimal_threshold": 0.56,
+  "random_state": 42,
+  "dataset_info": {
+    "path": "thyroid_dataset.csv",
+    "n_rows": 3771,
+    "n_columns": 26,
+    "class_distribution": {
+      "0": 3480,
+      "1": 291
+    },
+    "imbalance_ratio": 0.0836,
+    "imputation_sentinel_counts": {
+      "sex": 150,
+      "TSH": 369,
+      "TT4": 231,
+      "T4U": 387,
+      "FTI": 385
+    }
+  },
+  "preprocessing_info": {
+    "sex_sentinel_replaced": 150,
+    "sex_mode_used": 0,
+    "medians_used": {
+      "TSH": 1.4,
+      "TT4": 103.0,
+      "T4U": 0.98,
+      "FTI": 107.0
+    },
+    "imputed_flag_columns": [
+      "was_imputed_TSH",
+      "was_imputed_TT4",
+      "was_imputed_T4U",
+      "was_imputed_FTI"
+    ]
+  },
+  "feature_names": [
+    "age",
+    "sex",
+    "on thyroxine",
+    "query on thyroxine",
+    "on antithyroid medication",
+    "sick",
+    "pregnant",
+    "thyroid surgery",
+    "I131 treatment",
+    "query hypothyroid",
+    "query hyperthyroid",
+    "lithium",
+    "goitre",
+    "tumor",
+    "hypopituitary",
+    "psych",
+    "TSH",
+    "TT4",
+    "T4U",
+    "FTI",
+    "was_imputed_TSH",
+    "was_imputed_TT4",
+    "was_imputed_T4U",
+    "was_imputed_FTI"
+  ],
+  "training_metrics": {
+    "LogisticRegression": {
+      "cv_roc_auc_mean": 0.9901,
+      "cv_roc_auc_std": 0.0067,
+      "test_roc_auc": 0.9935,
+      "test_pr_auc": 0.8988,
+      "test_f1": 0.8382,
+      "test_accuracy": 0.9709,
+      "test_precision": 0.7308,
+      "test_recall": 0.9828
+    },
+    "RandomForest": {
+      "cv_roc_auc_mean": 0.9988,
+      "cv_roc_auc_std": 0.0008,
+      "test_roc_auc": 0.9995,
+      "test_pr_auc": 0.9933,
+      "test_f1": 0.9667,
+      "test_accuracy": 0.9947,
+      "test_precision": 0.9355,
+      "test_recall": 1.0
+    },
+    "XGBoost": {
+      "cv_roc_auc_mean": 0.9986,
+      "cv_roc_auc_std": 0.0013,
+      "test_roc_auc": 0.9989,
+      "test_pr_auc": 0.9805,
+      "test_f1": 0.9831,
+      "test_accuracy": 0.9974,
+      "test_precision": 0.9667,
+      "test_recall": 1.0
+    }
+  },
+  "test_metrics": {
+    "roc_auc": 0.9995,
+    "pr_auc": 0.9933,
+    "f1": 0.9667,
+    "accuracy": 0.9947,
+    "precision": 0.9355,
+    "recall": 1.0
+  },
+  "threshold_metrics": {
+    "optimal_threshold": 0.56,
+    "f1_at_threshold": 0.9831,
+    "precision_at_threshold": 0.9667,
+    "recall_at_threshold": 1.0,
+    "accuracy_at_threshold": 0.9974
+  }
+}

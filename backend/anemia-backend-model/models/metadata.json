@@ -1,0 +1,131 @@
+{
+  "model_version": "1.0.0",
+  "training_date": "2026-02-12T18:20:49.077314",
+  "best_model": "LogisticRegression",
+  "optimal_threshold": 0.47,
+  "random_state": 42,
+  "dataset_info": {
+    "path": "anemia_dataset.csv",
+    "hash": "a9e3b83024f43819",
+    "n_rows": 1421,
+    "n_columns": 6,
+    "class_distribution": {
+      "0": 801,
+      "1": 620
+    },
+    "imbalance_ratio": 0.774
+  },
+  "deduplication": {
+    "original_rows": 1421,
+    "duplicates_found": 887,
+    "rows_after_dedup": 534,
+    "missing_values_total": 0
+  },
+  "engineered_features": [
+    "hb_below_threshold",
+    "mch_mchc_ratio"
+  ],
+  "preprocessing_info": {
+    "feature_names": [
+      "Gender",
+      "Hemoglobin",
+      "MCH",
+      "MCHC",
+      "MCV",
+      "hb_below_threshold",
+      "mch_mchc_ratio"
+    ],
+    "n_features": 7
+  },
+  "feature_names": [
+    "Gender",
+    "Hemoglobin",
+    "MCH",
+    "MCHC",
+    "MCV",
+    "hb_below_threshold",
+    "mch_mchc_ratio"
+  ],
+  "clinical_baseline": {
+    "accuracy": 0.9457,
+    "precision": 1.0,
+    "recall": 0.8826,
+    "f1": 0.9376
+  },
+  "training_metrics": {
+    "LogisticRegression": {
+      "cv_roc_auc_mean": 1.0,
+      "cv_roc_auc_std": 0.0,
+      "test_roc_auc": 1.0,
+      "test_pr_auc": 1.0,
+      "test_f1": 1.0,
+      "test_accuracy": 1.0,
+      "test_precision": 1.0,
+      "test_recall": 1.0
+    },
+    "RandomForest": {
+      "cv_roc_auc_mean": 1.0,
+      "cv_roc_auc_std": 0.0,
+      "test_roc_auc": 1.0,
+      "test_pr_auc": 1.0,
+      "test_f1": 1.0,
+      "test_accuracy": 1.0,
+      "test_precision": 1.0,
+      "test_recall": 1.0
+    },
+    "XGBoost": {
+      "cv_roc_auc_mean": 1.0,
+      "cv_roc_auc_std": 0.0,
+      "test_roc_auc": 1.0,
+      "test_pr_auc": 1.0,
+      "test_f1": 1.0,
+      "test_accuracy": 1.0,
+      "test_precision": 1.0,
+      "test_recall": 1.0
+    }
+  },
+  "tuning_results": {
+    "best_params": {
+      "classifier__C": "1.0",
+      "classifier__solver": "lbfgs"
+    },
+    "best_cv_roc_auc": 1.0
+  },
+  "test_metrics": {
+    "roc_auc": 1.0,
+    "pr_auc": 1.0,
+    "f1": 1.0,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0
+  },
+  "threshold_metrics": {
+    "optimal_threshold": 0.47,
+    "f1_at_threshold": 1.0,
+    "precision_at_threshold": 1.0,
+    "recall_at_threshold": 1.0,
+    "accuracy_at_threshold": 1.0
+  },
+  "feature_ranges": {
+    "Gender": [
+      0,
+      1
+    ],
+    "Hemoglobin": [
+      2.0,
+      25.0
+    ],
+    "MCH": [
+      10.0,
+      50.0
+    ],
+    "MCHC": [
+      20.0,
+      45.0
+    ],
+    "MCV": [
+      50.0,
+      150.0
+    ]
+  }
+}
