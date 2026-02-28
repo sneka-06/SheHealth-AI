@@ -21,6 +21,7 @@ interface PredictionResult {
   probability: number;
   classification: string;
   recommendation: string;
+  advice: string[];
 }
 
 const riskConfig = {
@@ -156,6 +157,28 @@ const BreastCancerPage = () => {
 
       const data = await res.json();
 
+      const breastCancerAdvice: Record<"low" | "moderate" | "high" | "unknown", string[]> = {
+        low: [
+          "Result appears Normal. Continue routine screening as per age-appropriate guidelines.",
+          "Perform monthly breast self-exams and report any changes to your doctor.",
+          "Maintain a healthy lifestyle with regular exercise and a balanced diet."
+        ],
+        moderate: [
+          "Result appears Benign (non-cancerous). However, professional clinical evaluation is essential.",
+          "Consult a doctor or breast specialist to confirm the finding through a physical exam or biopsy if recommended.",
+          "Monitor the area for any changes in size, shape, or texture."
+        ],
+        high: [
+          "High Risk (Malignant) detected: Urgent medical consultation is strongly recommended.",
+          "Schedule an appointment with an oncologist or breast specialist immediately for further diagnostic testing.",
+          "Do not delay professional evaluation, as early intervention significantly improves outcomes."
+        ],
+        unknown: [
+          "The uploaded image could not be processed reliably. Please ensure the image is a clear ultrasound scan.",
+          "Consult a healthcare professional for a medical-grade ultrasound or mammogram."
+        ]
+      };
+
       const riskMap: Record<string, PredictionResult["riskLevel"]> = {
         Low: "low",
         Borderline: "moderate",
@@ -163,11 +186,14 @@ const BreastCancerPage = () => {
         "Invalid Input": "unknown",
       };
 
+      const riskLevel = riskMap[data.risk_level] || "unknown";
+
       const predictionResult: PredictionResult = {
-        riskLevel: riskMap[data.risk_level] || "unknown",
+        riskLevel,
         probability: Math.round(data.probability * 100),
         classification: data.classification || "—",
         recommendation: data.diagnosis || data.recommendation || "",
+        advice: breastCancerAdvice[riskLevel]
       };
 
       setResult(predictionResult);
@@ -398,10 +424,25 @@ const BreastCancerPage = () => {
                 Classification: {result.classification}
               </p>
               {result.recommendation && (
-                <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed text-sm">
+                <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed text-sm mb-6">
                   {result.recommendation}
                 </p>
               )}
+
+              <div className="text-left bg-background/50 rounded-xl p-6 border border-border">
+                <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-primary" />
+                  Recommendations & Next Steps
+                </h4>
+                <ul className="space-y-2">
+                  {result.advice.map((item, idx) => (
+                    <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </motion.div>
         )}

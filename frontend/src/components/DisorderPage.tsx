@@ -29,6 +29,7 @@ interface DisorderPageProps {
   whyItMatters: string;
   fields: FormField[];
   icon: React.ReactNode;
+  adviceMap?: Record<"low" | "moderate" | "high", string[]>;
 }
 
 const riskConfig = {
@@ -37,7 +38,7 @@ const riskConfig = {
   high: { label: "High Risk", color: "bg-destructive text-destructive-foreground", border: "border-destructive" },
 };
 
-const DisorderPage = ({ title, description, whyItMatters, fields, icon }: DisorderPageProps) => {
+const DisorderPage = ({ title, description, whyItMatters, fields, icon, adviceMap }: DisorderPageProps) => {
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [result, setResult] = useState<PredictionResult | null>(null);
   const [loading, setLoading] = useState(false);
@@ -218,9 +219,26 @@ const DisorderPage = ({ title, description, whyItMatters, fields, icon }: Disord
               <p className="text-3xl font-display font-bold text-foreground mb-2">
                 {result.probability}% PCOS Probability
               </p>
-              <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed text-sm mt-4">
+              <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed text-sm mt-4 mb-6">
                 {result.recommendation}
               </p>
+
+              {adviceMap && (
+                <div className="text-left bg-background/50 rounded-xl p-6 border border-border">
+                  <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-primary" />
+                    Recommendations & Next Steps
+                  </h4>
+                  <ul className="space-y-2">
+                    {adviceMap[result.riskLevel].map((advice, idx) => (
+                      <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                        {advice}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </motion.div>
         )}

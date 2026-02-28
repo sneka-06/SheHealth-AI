@@ -9,6 +9,24 @@ const fields: FormField[] = [
   { name: "antral_follicle_count", label: "Antral Follicle Count", type: "number", placeholder: "e.g. 12", min: 0, max: 40 },
 ];
 
+const pcosAdvice = {
+  low: [
+    "Maintain a balanced diet and regular physical activity to support hormonal health.",
+    "Monitor your menstrual cycle for any sudden changes or irregularities.",
+    "No immediate clinical action required; consult a doctor if you notice unusual hair growth or acne."
+  ],
+  moderate: [
+    "Consider tracking your symptoms closely and maintaining a health diary.",
+    "Schedule a consultation with a gynecologist or endocrinologist for a professional hormonal evaluation.",
+    "Maintain a low-glycemic diet and regular exercise to manage metabolic markers."
+  ],
+  high: [
+    "High Risk detected: Professional clinical diagnosis is strongly recommended.",
+    "Schedule an appointment with an endocrinologist for blood tests (Testosterone, LH/FSH) and a pelvic ultrasound.",
+    "Medical intervention and lifestyle management under professional guidance are advised."
+  ]
+};
+
 const PCOSPage = () => (
   <DisorderPage
     title="PCOS Detection"
@@ -16,6 +34,7 @@ const PCOSPage = () => (
     whyItMatters="Early detection can prevent infertility, diabetes, and cardiovascular complications"
     fields={fields}
     icon={<HeartPulse className="w-8 h-8" />}
+    adviceMap={pcosAdvice}
   />
 );
 

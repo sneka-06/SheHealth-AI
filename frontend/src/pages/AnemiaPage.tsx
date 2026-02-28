@@ -27,6 +27,7 @@ interface PredictionResult {
   probability: number;
   label: string;
   recommendation: string;
+  advice: string[];
 }
 
 // ─── Risk config ────────────────────────────────────────────────────────────────
@@ -131,14 +132,35 @@ const AnemiaPage = () => {
         High: "high",
       };
 
+      const anemiaAdvice: Record<"low" | "moderate" | "high", string[]> = {
+        low: [
+          "Continue a balanced diet rich in iron, vitamin B12, and folate.",
+          "Regularly include leafy greens, legumes, and lean proteins in your meals.",
+          "Consult a doctor if you experience persistent fatigue or dizziness."
+        ],
+        moderate: [
+          "Suggests borderline or mild anemia; clinical correlation is recommended.",
+          "Consider scheduling a consultation with a healthcare provider for a full CBC analysis.",
+          "Discuss the potential need for iron or vitamin B12 supplements with a professional."
+        ],
+        high: [
+          "High Risk detected: Professional medical evaluation is strongly recommended.",
+          "Consult a doctor immediately to investigate the underlying cause (deficiency, chronic condition, etc.).",
+          "Follow a medically supervised treatment plan, which may include high-dose supplements or therapy."
+        ]
+      };
+
+      const riskLevel = riskMap[data.risk_level] || "moderate";
+
       setResult({
-        riskLevel: riskMap[data.risk_level] || "moderate",
+        riskLevel,
         probability: Math.round(data.probability * 100),
         label: data.prediction_label,
         recommendation:
           data.prediction_label === "Anemic"
-            ? "The analysis suggests signs of anemia. Please consult a healthcare professional for confirmation and treatment options. Common treatments include iron supplements and dietary changes."
-            : "The analysis does not indicate anemia. Continue maintaining a balanced diet rich in iron, vitamin B12, and folate for healthy blood cell production.",
+            ? "The analysis suggests signs of anemia. Please consult a healthcare professional for confirmation and treatment options."
+            : "The analysis does not indicate anemia. Continue maintaining a healthy lifestyle.",
+        advice: anemiaAdvice[riskLevel]
       });
     } catch (err: unknown) {
       const message =
@@ -373,9 +395,24 @@ const AnemiaPage = () => {
               <p className="text-base font-semibold text-foreground/80 mb-2">
                 Result: {result.label}
               </p>
-              <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed text-sm mt-4">
+              <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed text-sm mt-4 mb-6">
                 {result.recommendation}
               </p>
+
+              <div className="text-left bg-background/50 rounded-xl p-6 border border-border">
+                <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-primary" />
+                  Recommendations & Next Steps
+                </h4>
+                <ul className="space-y-2">
+                  {result.advice.map((item, idx) => (
+                    <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </motion.div>
         )}

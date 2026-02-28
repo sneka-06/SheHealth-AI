@@ -30,6 +30,7 @@ interface PredictionResult {
   riskLevel: "low" | "moderate" | "high";
   probability: number;
   recommendation: string;
+  advice: string[];
 }
 
 // ─── Medical‑history checkbox definitions ───────────────────────────────────────
@@ -173,10 +174,31 @@ const ThyroidPage = () => {
         High: "high",
       };
 
+      const thyroidAdvice: Record<"low" | "moderate" | "high", string[]> = {
+        low: [
+          "Thyroid function appears stable; continue a balanced lifestyle.",
+          "Keep an eye on any sudden changes in energy levels, weight, or mood.",
+          "Consult a doctor if you experience persistent symptoms of fatigue or cold intolerance."
+        ],
+        moderate: [
+          "Borderline thyroid levels detected; clinical correlation with symptoms is advised.",
+          "Consider scheduling an appointment with a healthcare provider for a repeat TSH/T4 test.",
+          "Monitor for symptoms like unexplained weight change, hair loss, or heart rate fluctuations."
+        ],
+        high: [
+          "High Risk detected: Professional clinical evaluation is strongly recommended.",
+          "Consult an endocrinologist for a comprehensive thyroid profile and professional diagnosis.",
+          "Discuss potential treatment options (e.g., hormone replacement or antithyroid medication) with a specialist."
+        ]
+      };
+
+      const riskLevel = riskMap[data.risk_level] || "moderate";
+
       setResult({
-        riskLevel: riskMap[data.risk_level] || "moderate",
+        riskLevel,
         probability: Math.round(data.probability * 100),
         recommendation: data.diagnosis,
+        advice: thyroidAdvice[riskLevel]
       });
     } catch (err: unknown) {
       const message =
@@ -451,9 +473,24 @@ const ThyroidPage = () => {
               <p className="text-3xl font-display font-bold text-foreground mb-2">
                 {result.probability}% Thyroid Disorder Probability
               </p>
-              <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed text-sm mt-4">
+              <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed text-sm mt-4 mb-6">
                 {result.recommendation}
               </p>
+
+              <div className="text-left bg-background/50 rounded-xl p-6 border border-border">
+                <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-primary" />
+                  Recommendations & Next Steps
+                </h4>
+                <ul className="space-y-2">
+                  {result.advice.map((item, idx) => (
+                    <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </motion.div>
         )}

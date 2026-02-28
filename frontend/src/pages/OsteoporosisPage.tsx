@@ -30,6 +30,7 @@ interface PredictionResult {
   riskLevel: "low" | "moderate" | "high";
   probability: number;
   recommendation: string;
+  advice: string[];
 }
 
 // ─── Dropdown field definitions ─────────────────────────────────────────────────
@@ -203,10 +204,31 @@ const OsteoporosisPage = () => {
         High: "high",
       };
 
+      const osteoporosisAdviceList: Record<"low" | "moderate" | "high", string[]> = {
+        low: [
+          "Maintain adequate calcium and Vitamin D intake through diet and sunlight.",
+          "Engage in regular weight-bearing and muscle-strengthening exercises.",
+          "Avoid smoking and excessive alcohol consumption to preserve bone health."
+        ],
+        moderate: [
+          "Suggests an increased risk; a clinical consultation for a bone density test is recommended.",
+          "Discuss the potential need for calcium or Vitamin D supplements with a healthcare provider.",
+          "Evaluate your home environment for fall hazards and consider balance-improving exercises."
+        ],
+        high: [
+          "High Risk detected: Professional medical evaluation and a DEXA scan are strongly recommended.",
+          "Consult a doctor immediately to discuss preventative treatments and medication options.",
+          "Prioritize fall prevention strategies and avoid high-impact activities that may cause fractures."
+        ]
+      };
+
+      const riskLevel = riskMap[data.risk_level] || "moderate";
+
       setResult({
-        riskLevel: riskMap[data.risk_level] || "moderate",
+        riskLevel,
         probability: Math.round(data.probability * 100),
         recommendation: data.diagnosis,
+        advice: osteoporosisAdviceList[riskLevel]
       });
     } catch (err: unknown) {
       const message =
@@ -438,9 +460,24 @@ const OsteoporosisPage = () => {
               <p className="text-3xl font-display font-bold text-foreground mb-2">
                 {result.probability}% Osteoporosis Probability
               </p>
-              <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed text-sm mt-4">
+              <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed text-sm mt-4 mb-6">
                 {result.recommendation}
               </p>
+
+              <div className="text-left bg-background/50 rounded-xl p-6 border border-border">
+                <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-primary" />
+                  Recommendations & Next Steps
+                </h4>
+                <ul className="space-y-2">
+                  {result.advice.map((item, idx) => (
+                    <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </motion.div>
         )}
