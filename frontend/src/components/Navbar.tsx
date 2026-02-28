@@ -12,8 +12,21 @@ const navItems = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isPredictVisible, setIsPredictVisible] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const isItemActive = (item: typeof navItems[0]) => {
+    if (item.label === "Home") {
+      return location.pathname === "/" && !isPredictVisible;
+    }
+    if (item.label === "Predict") {
+      const isPredictRoute = ["/pcos", "/anemia", "/thyroid", "/osteoporosis", "/breast-cancer"].includes(location.pathname);
+      return isPredictRoute || (location.pathname === "/" && isPredictVisible);
+    }
+    return location.pathname === item.path && !item.scrollTo;
+  };
+
 
   const handleNavClick = (path: string, scrollTo?: string) => {
     setIsOpen(false);
@@ -41,13 +54,34 @@ const Navbar = () => {
     setIsOpen(false);
   }, [location]);
 
+  useEffect(() => {
+    // Only track scroll on the Home page
+    if (location.pathname !== "/") {
+      setIsPredictVisible(false);
+      return;
+    }
+
+    const section = document.getElementById("disorders-section");
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsPredictVisible(entry.isIntersecting);
+      },
+      { threshold: 0.2 } // Activates when 20% of the section is visible
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [location.pathname]);
+
   return (
+
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-card/95 backdrop-blur-md shadow-card border-b border-border"
-          : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+        ? "bg-card/95 backdrop-blur-md shadow-card border-b border-border"
+        : "bg-transparent"
+        }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
@@ -66,11 +100,12 @@ const Navbar = () => {
               <button
                 key={item.label}
                 onClick={() => handleNavClick(item.path, item.scrollTo)}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  location.pathname === item.path && !item.scrollTo
-                    ? "bg-accent text-accent-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${isItemActive(item)
+                  ? "bg-accent text-accent-foreground"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+
+
               >
                 {item.label}
               </button>
@@ -102,11 +137,12 @@ const Navbar = () => {
                 <button
                   key={item.label}
                   onClick={() => handleNavClick(item.path, item.scrollTo)}
-                  className={`block w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                    location.pathname === item.path && !item.scrollTo
-                      ? "bg-accent text-accent-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  }`}
+                  className={`block w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors ${isItemActive(item)
+                    ? "bg-accent text-accent-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    }`}
+
+
                 >
                   {item.label}
                 </button>

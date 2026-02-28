@@ -5,10 +5,10 @@ import {
   Activity,
   Loader2,
   ShieldCheck,
-  Brain,
   User,
   FlaskConical,
   ClipboardList,
+  Stethoscope,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -198,7 +198,7 @@ const ThyroidPage = () => {
           className="text-center mb-12"
         >
           <div className="w-16 h-16 rounded-2xl bg-accent flex items-center justify-center mx-auto mb-5 text-primary">
-            <Brain className="w-8 h-8" />
+            <Stethoscope className="w-8 h-8" />
           </div>
           <h1 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
             Thyroid Disorder Detection

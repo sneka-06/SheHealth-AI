@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  HeartPulse, Brain, Droplets, Bone, Activity, Ribbon,
-  ArrowRight, ClipboardList, Cpu, BarChart3, Shield, Users, CheckCircle2
+  HeartPulse, Droplets, Bone, Activity, Ribbon,
+  ArrowRight, ClipboardList, Cpu, BarChart3, Shield, Users, CheckCircle2,
+  Stethoscope
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-medical.jpg";
@@ -10,7 +11,7 @@ import heroImage from "@/assets/hero-medical.jpg";
 const disorders = [
   { title: "PCOS Detection", desc: "Polycystic Ovary Syndrome screening using hormonal and metabolic indicators.", icon: <HeartPulse className="w-6 h-6" />, path: "/pcos", color: "from-primary to-primary/70" },
   { title: "Anemia Detection", desc: "Iron-deficiency and anemia risk assessment through hematological parameters.", icon: <Droplets className="w-6 h-6" />, path: "/anemia", color: "from-destructive to-destructive/70" },
-  { title: "Thyroid Disorder", desc: "Hypo/Hyperthyroidism prediction using thyroid function markers.", icon: <Brain className="w-6 h-6" />, path: "/thyroid", color: "from-warning to-warning/70" },
+  { title: "Thyroid Disorder", desc: "Hypo/Hyperthyroidism prediction using thyroid function markers.", icon: <Stethoscope className="w-6 h-6" />, path: "/thyroid", color: "from-warning to-warning/70" },
   { title: "Osteoporosis Risk", desc: "Bone density risk evaluation using demographic and clinical factors.", icon: <Bone className="w-6 h-6" />, path: "/osteoporosis", color: "from-success to-success/70" },
   { title: "Breast Cancer Risk", desc: "Early breast cancer risk screening based on clinical features.", icon: <Ribbon className="w-6 h-6" />, path: "/breast-cancer", color: "from-secondary-foreground to-primary" },
 ];
