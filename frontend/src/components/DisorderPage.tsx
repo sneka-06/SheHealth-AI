@@ -72,7 +72,7 @@ const DisorderPage = ({ title, description, whyItMatters, fields, icon }: Disord
         payload[field.name] = parseFloat(formData[field.name]);
       }
 
-      const res = await fetch("http://localhost:5000/predict/pcos", {
+      const res = await fetch("http://localhost:5005/predict/pcos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

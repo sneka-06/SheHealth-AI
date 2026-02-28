@@ -108,4 +108,7 @@ The service uses a **ResNet50** model trained on breast ultrasound datasets. The
 
 - **Model Not Found:** Ensure the `resnet50_ultrasound_final.keras` file is present in the `models/` directory.
 - **TensorFlow Errors:** Ensure you have a compatible Python version (3.9-3.11) and the correct TensorFlow version installed.
+- **Mac (Apple Silicon) Loading Issues:** If you encounter errors loading the model on a Mac with M1/M2/M3 chips:
+  1. Ensure `tf_keras` is installed: `pip install tf_keras`
+  2. For native acceleration, install: `pip install tensorflow-macos tensorflow-metal`
 - **Port Conflict:** If port `5004` is in use, modify the `port` argument in `app.py` or kill the process using that port.
