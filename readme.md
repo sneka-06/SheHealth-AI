@@ -33,20 +33,6 @@ sheHealth-ai/
     └── thyroid-backend-model/             # Flask service for Thyroid prediction
 ```
 
-## 🧠 Machine Learning Models
-
-The trained machine learning models (`.keras` files) are excluded from this repository via `.gitignore` due to their file size. To run the backend prediction services correctly, you **must download the model artifacts** from the link below and place them in their respective `models/` directories.
-
-> [!IMPORTANT]
-> Without these model files, the backend services will fail to initialize or provide accurate predictions.
-
-**Download Model Artifacts Here:** [Google Drive - sheHealth Model Files](https://drive.google.com/drive/folders/1KVr-DLNsQhFxKfa3vnjEa6QB7NkukEI1?usp=drive_link)
-
-### Model Placement Guide:
-| Backend Service | Model File(s) Required | Target Directory |
-| :--- | :--- | :--- |
-| **Breast Cancer** | `resnet50_ultrasound_final.keras` | `backend/breast-cancer-backend-model/models/` |
-
 ## 🚀 Getting Started
 
 ### Prerequisites
