@@ -6,10 +6,13 @@ import {
   Loader2,
   ShieldCheck,
   Droplets,
+  Download,
+  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { generatePDFReport } from "@/lib/report-utils";
 import {
   Select,
   SelectContent,
@@ -52,6 +55,7 @@ const riskConfig = {
 // ─── Component ──────────────────────────────────────────────────────────────────
 const AnemiaPage = () => {
   // --- State ---
+  const [patientName, setPatientName] = useState("");
   const [gender, setGender] = useState("");
   const [hemoglobin, setHemoglobin] = useState("");
   const [mch, setMch] = useState("");
@@ -171,6 +175,26 @@ const AnemiaPage = () => {
     }
   };
 
+  const handleDownloadPDF = () => {
+    if (!result) return;
+
+    generatePDFReport({
+      patientName,
+      condition: "Anemia Disorder",
+      riskLevel: riskConfig[result.riskLevel].label,
+      probability: result.probability,
+      diagnosis: result.recommendation,
+      clinicalData: [
+        { label: "Gender", value: gender === "0" ? "Female" : "Male" },
+        { label: "Hemoglobin", value: hemoglobin, unit: "g/dL" },
+        { label: "MCH", value: mch, unit: "pg" },
+        { label: "MCHC", value: mchc, unit: "g/dL" },
+        { label: "MCV", value: mcv, unit: "fL" }
+      ],
+      advice: result.advice
+    });
+  };
+
   // --- Render ---
   return (
     <div className="min-h-screen bg-background pt-24 pb-16">
@@ -206,10 +230,24 @@ const AnemiaPage = () => {
           transition={{ delay: 0.1 }}
           className="bg-card rounded-2xl border border-border p-6 md:p-8 shadow-card mb-8"
         >
-          <h2 className="text-lg font-display font-semibold text-foreground mb-6 flex items-center gap-2">
-            <Activity className="w-5 h-5 text-primary" />
-            Enter CBC Parameters
-          </h2>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b border-border pb-6">
+            <h2 className="text-lg font-display font-semibold text-foreground flex items-center gap-2">
+              <Activity className="w-5 h-5 text-primary" />
+              Enter CBC Parameters
+            </h2>
+            <div className="w-full md:w-72 space-y-2">
+              <Label htmlFor="patientName" className="text-xs font-semibold text-muted-foreground uppercase flex items-center gap-1.5">
+                <User className="w-3 h-3" /> Patient Name
+              </Label>
+              <Input
+                id="patientName"
+                placeholder="Enter Full Name"
+                className="bg-background h-9 text-sm"
+                value={patientName}
+                onChange={(e) => setPatientName(e.target.value)}
+              />
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Gender */}
@@ -412,6 +450,17 @@ const AnemiaPage = () => {
                     </li>
                   ))}
                 </ul>
+
+                <div className="mt-8 pt-6 border-t border-border flex justify-center">
+                  <Button
+                    onClick={handleDownloadPDF}
+                    size="lg"
+                    className="bg-hero-gradient text-primary-foreground shadow-hero hover:opacity-90 transition-opacity gap-2 px-8"
+                  >
+                    <Download className="w-5 h-5" />
+                    Download Clinical Assessment Report (PDF)
+                  </Button>
+                </div>
               </div>
             </div>
           </motion.div>

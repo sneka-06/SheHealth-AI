@@ -13,6 +13,8 @@ import OsteoporosisPage from "./pages/OsteoporosisPage";
 import BreastCancerPage from "./pages/BreastCancerPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
+import SymptomPage from "./pages/SymptomPage";
+import SplashPage from "./pages/SplashPage";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "@/components/ScrollToTop";
 
@@ -27,7 +29,9 @@ const App = () => (
         <ScrollToTop />
         <Navbar />
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<SplashPage />} />
+          <Route path="/home" element={<Index />} />
+          <Route path="/symptoms" element={<SymptomPage />} />
           <Route path="/pcos" element={<PCOSPage />} />
           <Route path="/anemia" element={<AnemiaPage />} />
           <Route path="/thyroid" element={<ThyroidPage />} />

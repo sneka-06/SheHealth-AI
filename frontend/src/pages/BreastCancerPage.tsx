@@ -12,8 +12,13 @@ import {
   ShieldCheck,
   CheckCircle2,
   FileImage,
+  Download,
+  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { generatePDFReport } from "@/lib/report-utils";
 import { Progress } from "@/components/ui/progress";
 
 interface PredictionResult {
@@ -55,6 +60,7 @@ const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/webp", "image/bmp", "i
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 
 const BreastCancerPage = () => {
+  const [patientName, setPatientName] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
@@ -205,6 +211,24 @@ const BreastCancerPage = () => {
     }
   };
 
+  const handleDownloadPDF = () => {
+    if (!result) return;
+
+    generatePDFReport({
+      patientName,
+      condition: "Breast Cancer",
+      riskLevel: result.riskLevel, // Already mapped in this page
+      probability: result.probability,
+      diagnosis: result.recommendation,
+      clinicalData: [
+        { label: "Modality", value: "Ultrasound" },
+        { label: "File Name", value: file?.name || "N/A" },
+        { label: "Classification", value: result.classification }
+      ],
+      advice: result.advice
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background pt-24 pb-16">
       <div className="container mx-auto px-4 max-w-5xl">
@@ -237,10 +261,24 @@ const BreastCancerPage = () => {
           transition={{ delay: 0.1 }}
           className="bg-card rounded-2xl border border-border p-6 md:p-8 shadow-card mb-8"
         >
-          <h2 className="text-lg font-display font-semibold text-foreground mb-6 flex items-center gap-2">
-            <FileImage className="w-5 h-5 text-primary" />
-            Upload Ultrasound Image
-          </h2>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b border-border pb-6">
+            <h2 className="text-lg font-display font-semibold text-foreground flex items-center gap-2">
+              <FileImage className="w-5 h-5 text-primary" />
+              Upload Ultrasound Image
+            </h2>
+            <div className="w-full md:w-72 space-y-2">
+              <Label htmlFor="patientName" className="text-xs font-semibold text-muted-foreground uppercase flex items-center gap-1.5">
+                <User className="w-3 h-3" /> Patient Name
+              </Label>
+              <Input
+                id="patientName"
+                placeholder="Enter Full Name"
+                className="bg-background h-9 text-sm"
+                value={patientName}
+                onChange={(e) => setPatientName(e.target.value)}
+              />
+            </div>
+          </div>
 
           <AnimatePresence mode="wait">
             {!preview ? (
@@ -442,6 +480,17 @@ const BreastCancerPage = () => {
                     </li>
                   ))}
                 </ul>
+
+                <div className="mt-8 pt-6 border-t border-border flex justify-center">
+                  <Button
+                    onClick={handleDownloadPDF}
+                    size="lg"
+                    className="bg-hero-gradient text-primary-foreground shadow-hero hover:opacity-90 transition-opacity gap-2 px-8"
+                  >
+                    <Download className="w-5 h-5" />
+                    Download Clinical Assessment Report (PDF)
+                  </Button>
+                </div>
               </div>
             </div>
           </motion.div>

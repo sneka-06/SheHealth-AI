@@ -5,6 +5,7 @@ import {
   Activity,
   Loader2,
   ShieldCheck,
+  Download,
   User,
   FlaskConical,
   ClipboardList,
@@ -13,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { generatePDFReport } from "@/lib/report-utils";
 import {
   Select,
   SelectContent,
@@ -73,6 +75,7 @@ const riskConfig = {
 // ─── Component ──────────────────────────────────────────────────────────────────
 const ThyroidPage = () => {
   // --- State ---
+  const [patientName, setPatientName] = useState("");
   const [age, setAge] = useState("");
   const [sex, setSex] = useState("");
   const [tsh, setTsh] = useState("");
@@ -209,6 +212,31 @@ const ThyroidPage = () => {
     }
   };
 
+  const handleDownloadPDF = () => {
+    if (!result) return;
+
+    // Gather all fields for clinical data
+    const clinicalData = [
+      { label: "Age", value: age },
+      { label: "Sex", value: sex === "0" ? "Female" : "Male" },
+      { label: "TSH", value: tsh },
+      { label: "TT4", value: tt4 },
+      { label: "T4U", value: t4u },
+      { label: "FTI", value: fti },
+      ...medicalHistoryFields.map(f => ({ label: f.label, value: history[f.key] ? "Yes" : "No" }))
+    ];
+
+    generatePDFReport({
+      patientName,
+      condition: "Thyroid Condition",
+      riskLevel: riskConfig[result.riskLevel].label,
+      probability: result.probability,
+      diagnosis: result.recommendation,
+      clinicalData,
+      advice: result.advice
+    });
+  };
+
   // --- Render ---
   return (
     <div className="min-h-screen bg-background pt-24 pb-16">
@@ -244,10 +272,24 @@ const ThyroidPage = () => {
           transition={{ delay: 0.1 }}
           className="bg-card rounded-2xl border border-border p-6 md:p-8 shadow-card mb-8"
         >
-          <h2 className="text-lg font-display font-semibold text-foreground mb-6 flex items-center gap-2">
-            <Activity className="w-5 h-5 text-primary" />
-            Enter Clinical Parameters
-          </h2>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b border-border pb-6">
+            <h2 className="text-lg font-display font-semibold text-foreground flex items-center gap-2">
+              <Activity className="w-5 h-5 text-primary" />
+              Enter Clinical Parameters
+            </h2>
+            <div className="w-full md:w-72 space-y-2">
+              <Label htmlFor="patientName" className="text-xs font-semibold text-muted-foreground uppercase flex items-center gap-1.5">
+                <User className="w-3 h-3" /> Patient Name
+              </Label>
+              <Input
+                id="patientName"
+                placeholder="Enter Full Name"
+                className="bg-background h-9 text-sm"
+                value={patientName}
+                onChange={(e) => setPatientName(e.target.value)}
+              />
+            </div>
+          </div>
 
           {/* ── Section 1: Patient Info ── */}
           <div className="mb-8">
@@ -490,6 +532,17 @@ const ThyroidPage = () => {
                     </li>
                   ))}
                 </ul>
+
+                <div className="mt-8 pt-6 border-t border-border flex justify-center">
+                  <Button
+                    onClick={handleDownloadPDF}
+                    size="lg"
+                    className="bg-hero-gradient text-primary-foreground shadow-hero hover:opacity-90 transition-opacity gap-2 px-8"
+                  >
+                    <Download className="w-5 h-5" />
+                    Download Clinical Assessment Report (PDF)
+                  </Button>
+                </div>
               </div>
             </div>
           </motion.div>

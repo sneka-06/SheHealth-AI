@@ -59,7 +59,7 @@ const Index = () => {
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button asChild size="lg" className="bg-hero-gradient text-primary-foreground shadow-hero hover:opacity-90 transition-opacity px-8">
-                  <Link to="/pcos">Start Screening <ArrowRight className="w-4 h-4 ml-2" /></Link>
+                  <Link to="/symptoms">Start Screening <ArrowRight className="w-4 h-4 ml-2" /></Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="border-border text-foreground hover:bg-accent">
                   <Link to="/about">Learn More</Link>

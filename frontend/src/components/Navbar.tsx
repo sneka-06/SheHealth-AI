@@ -4,8 +4,8 @@ import { Menu, X, HeartPulse } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
-  { label: "Home", path: "/", scrollTo: undefined },
-  { label: "Predict", path: "/", scrollTo: "disorders-section" },
+  { label: "Home", path: "/home", scrollTo: undefined },
+  { label: "Predict", path: "/home", scrollTo: "disorders-section" },
   { label: "About", path: "/about", scrollTo: undefined },
 ];
 
@@ -18,11 +18,11 @@ const Navbar = () => {
 
   const isItemActive = (item: typeof navItems[0]) => {
     if (item.label === "Home") {
-      return location.pathname === "/" && !isPredictVisible;
+      return location.pathname === "/home" && !isPredictVisible;
     }
     if (item.label === "Predict") {
       const isPredictRoute = ["/pcos", "/anemia", "/thyroid", "/osteoporosis", "/breast-cancer"].includes(location.pathname);
-      return isPredictRoute || (location.pathname === "/" && isPredictVisible);
+      return isPredictRoute || (location.pathname === "/home" && isPredictVisible);
     }
     return location.pathname === item.path && !item.scrollTo;
   };
@@ -55,8 +55,8 @@ const Navbar = () => {
   }, [location]);
 
   useEffect(() => {
-    // Only track scroll on the Home page
-    if (location.pathname !== "/") {
+    // Only track scroll on the Home/Landing page
+    if (location.pathname !== "/home") {
       setIsPredictVisible(false);
       return;
     }
@@ -85,7 +85,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link to="/home" className="flex items-center gap-2 group">
             <div className="w-9 h-9 rounded-lg bg-hero-gradient flex items-center justify-center shadow-hero group-hover:scale-105 transition-transform">
               <HeartPulse className="w-5 h-5 text-primary-foreground" />
             </div>
