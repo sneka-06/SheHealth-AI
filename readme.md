@@ -9,9 +9,18 @@
 * **Styling & UI:** Tailwind CSS, Shadcn UI, Radix UI primitives
 * **Routing:** React Router DOM
 * **Animations:** Framer Motion
+* **Reports:** jsPDF for Clinical Assessment generation
 * **Data Visualization:** Recharts
 * **Forms & Validation:** React Hook Form, Zod
 * **Testing:** Vitest, React Testing Library
+
+## ✨ Key Features
+
+*   **Welcome Splash Experience:** A calming, animated entry point with brand-consistent lavender and pink aesthetics.
+*   **Symptom-Based Pre-Screening:** Intelligent triage layer that suggests specific disease models based on user-reported symptoms.
+*   **AI-Powered Diagnostics:** Five distinct ML models for PCOS, Anemia, Thyroid, Osteoporosis, and Breast Cancer risk assessment.
+*   **Clinical Assessment Reports:** Professional PDF report generation including patient identification, risk levels, and tailored medical advice.
+*   **Responsive Dashboard:** A modern interface designed specifically for women's health indicators.
 
 ### Backend
 * **Framework:** Python with Flask
