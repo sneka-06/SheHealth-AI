@@ -17,33 +17,36 @@ import SymptomPage from "./pages/SymptomPage";
 import SplashPage from "./pages/SplashPage";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "@/components/ScrollToTop";
+import { ThemeProvider } from "./components/theme-provider";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<SplashPage />} />
-          <Route path="/home" element={<Index />} />
-          <Route path="/symptoms" element={<SymptomPage />} />
-          <Route path="/pcos" element={<PCOSPage />} />
-          <Route path="/anemia" element={<AnemiaPage />} />
-          <Route path="/thyroid" element={<ThyroidPage />} />
-          <Route path="/osteoporosis" element={<OsteoporosisPage />} />
-          <Route path="/breast-cancer" element={<BreastCancerPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider defaultTheme="light" storageKey="shehealth-theme">
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ScrollToTop />
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<SplashPage />} />
+            <Route path="/home" element={<Index />} />
+            <Route path="/symptoms" element={<SymptomPage />} />
+            <Route path="/pcos" element={<PCOSPage />} />
+            <Route path="/anemia" element={<AnemiaPage />} />
+            <Route path="/thyroid" element={<ThyroidPage />} />
+            <Route path="/osteoporosis" element={<OsteoporosisPage />} />
+            <Route path="/breast-cancer" element={<BreastCancerPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

@@ -92,6 +92,14 @@
     --sidebar-accent-foreground: 244 98% 80%;
     --sidebar-border: 230 20% 20%;
     --sidebar-ring: 244 98% 69%;
+
+    /* Refined custom tokens for dark mode */
+    --gradient-hero: linear-gradient(135deg, hsl(244 98% 69%), hsl(280 80% 65%), hsl(340 78% 75%));
+    --gradient-hero-subtle: linear-gradient(135deg, hsl(244 30% 12%), hsl(340 30% 12%));
+    --gradient-card: linear-gradient(145deg, hsl(230 25% 12%), hsl(244 30% 15%));
+    --shadow-card: 0 4px 24px -4px hsl(244 98% 69% / 0.15);
+    --shadow-card-hover: 0 8px 32px -4px hsl(244 98% 69% / 0.25);
+    --shadow-hero: 0 20px 60px -15px hsl(244 98% 69% / 0.4);
   }
 }
 
