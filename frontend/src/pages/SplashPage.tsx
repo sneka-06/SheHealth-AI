@@ -4,9 +4,59 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import splashImage from "@/assets/splash-welcome.png";
 
+const Snowflakes = () => {
+    // Generate an array of 40 snowflakes
+    const flakes = Array.from({ length: 40 }).map((_, i) => ({
+        id: i,
+        left: `${Math.random() * 100}%`,
+        duration: Math.random() * 10 + 15, // 15-25 seconds to fall
+        delay: Math.random() * 5,
+        size: Math.random() * 5 + 4, // 4px to 9px
+        opacity: Math.random() * 0.5 + 0.3,
+    }));
+
+    return (
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+            {flakes.map((flake) => (
+                <motion.div
+                    key={flake.id}
+                    className="absolute bg-pink-200 dark:bg-pink-100 rounded-full shadow-sm"
+                    style={{
+                        left: flake.left,
+                        top: "-20px",
+                        width: flake.size,
+                        height: flake.size,
+                        opacity: flake.opacity,
+                    }}
+                    animate={{
+                        y: ["0vh", "120vh"],
+                        x: ["-20px", "20px", "-20px"],
+                    }}
+                    transition={{
+                        y: {
+                            duration: flake.duration,
+                            repeat: Infinity,
+                            ease: "linear",
+                            delay: flake.delay,
+                        },
+                        x: {
+                            duration: flake.duration / 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            repeatType: "mirror",
+                            delay: flake.delay,
+                        }
+                    }}
+                />
+            ))}
+        </div>
+    );
+};
+
 const SplashPage = () => {
     return (
         <div className="relative h-screen w-full flex flex-col md:flex-row overflow-hidden bg-background">
+            <Snowflakes />
             {/* Background Layer - Universal Animation */}
             <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
                 <motion.svg
@@ -86,7 +136,7 @@ const SplashPage = () => {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1, delay: 0.2 }}
-                        className="relative w-full h-full p-8 md:p-12 lg:p-20"
+                        className="relative w-full h-full p-2 md:p-4"
                     >
                         <img
                             src={splashImage}

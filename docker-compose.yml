@@ -1,0 +1,57 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "8080:8080"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - app-network
+
+  anemia-api:
+    build:
+      context: ./backend/anemia-backend-model
+    ports:
+      - "5003:5003"
+    networks:
+      - app-network
+
+  breast-cancer-api:
+    build:
+      context: ./backend/breast-cancer-backend-model
+    ports:
+      - "5004:5004"
+    networks:
+      - app-network
+
+  osteoporosis-api:
+    build:
+      context: ./backend/osteoporosis-backend-model
+    ports:
+      - "5002:5002"
+    networks:
+      - app-network
+
+  pcos-api:
+    build:
+      context: ./backend/pcos-backend-model
+    ports:
+      - "5005:5005"
+    networks:
+      - app-network
+
+  thyroid-api:
+    build:
+      context: ./backend/thyroid-backend-model
+    ports:
+      - "5001:5001"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
