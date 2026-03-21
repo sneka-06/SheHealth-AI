@@ -175,6 +175,19 @@ const AnemiaPage = () => {
     }
   };
 
+  const handleClear = () => {
+    setPatientName("");
+    setGender("");
+    setHemoglobin("");
+    setMch("");
+    setMchc("");
+    setMcv("");
+    setErrors({});
+    setResult(null);
+    setApiError(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleDownloadPDF = () => {
     if (!result) return;
 
@@ -374,7 +387,7 @@ const AnemiaPage = () => {
           </div>
 
           {/* ── Submit ── */}
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex justify-center gap-4">
             <Button
               onClick={handlePredict}
               disabled={loading}
@@ -389,6 +402,15 @@ const AnemiaPage = () => {
               ) : (
                 "Predict Risk"
               )}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleClear}
+              disabled={loading}
+              size="lg"
+              className="px-8"
+            >
+              Clear
             </Button>
           </div>
         </motion.div>

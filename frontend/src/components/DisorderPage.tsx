@@ -110,6 +110,14 @@ const DisorderPage = ({ title, description, whyItMatters, fields, icon, adviceMa
     }
   };
 
+  const handleClear = () => {
+    setFormData({});
+    setPatientName("");
+    setErrors({});
+    setResult(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleDownloadPDF = () => {
     if (!result) return;
     generatePDFReport({
@@ -218,7 +226,7 @@ const DisorderPage = ({ title, description, whyItMatters, fields, icon, adviceMa
             ))}
           </div>
 
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex justify-center gap-4">
             <Button
               onClick={handlePredict}
               disabled={loading}
@@ -233,6 +241,15 @@ const DisorderPage = ({ title, description, whyItMatters, fields, icon, adviceMa
               ) : (
                 "Predict Risk"
               )}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleClear}
+              disabled={loading}
+              size="lg"
+              className="px-8"
+            >
+              Clear
             </Button>
           </div>
         </motion.div>

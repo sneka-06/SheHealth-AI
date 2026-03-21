@@ -212,6 +212,21 @@ const ThyroidPage = () => {
     }
   };
 
+  const handleClear = () => {
+    setPatientName("");
+    setAge("");
+    setSex("");
+    setTsh("");
+    setTt4("");
+    setT4u("");
+    setFti("");
+    setHistory(Object.fromEntries(medicalHistoryFields.map((f) => [f.key, false])));
+    setErrors({});
+    setResult(null);
+    setApiError(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleDownloadPDF = () => {
     if (!result) return;
 
@@ -459,7 +474,7 @@ const ThyroidPage = () => {
           </div>
 
           {/* ── Submit ── */}
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex justify-center gap-4">
             <Button
               onClick={handlePredict}
               disabled={loading}
@@ -474,6 +489,15 @@ const ThyroidPage = () => {
               ) : (
                 "Predict Risk"
               )}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleClear}
+              disabled={loading}
+              size="lg"
+              className="px-8"
+            >
+              Clear
             </Button>
           </div>
         </motion.div>

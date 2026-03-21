@@ -242,6 +242,16 @@ const OsteoporosisPage = () => {
     }
   };
 
+  const handleClear = () => {
+    setPatientName("");
+    setAge("");
+    setDropdowns(Object.fromEntries(allDropdowns.map((f) => [f.key, f.defaultValue ?? ""])));
+    setErrors({});
+    setResult(null);
+    setApiError(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleDownloadPDF = () => {
     if (!result) return;
 
@@ -440,7 +450,7 @@ const OsteoporosisPage = () => {
           )}
 
           {/* ── Submit ── */}
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex justify-center gap-4">
             <Button
               onClick={handlePredict}
               disabled={loading}
@@ -455,6 +465,15 @@ const OsteoporosisPage = () => {
               ) : (
                 "Predict Risk"
               )}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleClear}
+              disabled={loading}
+              size="lg"
+              className="px-8"
+            >
+              Clear
             </Button>
           </div>
         </motion.div>

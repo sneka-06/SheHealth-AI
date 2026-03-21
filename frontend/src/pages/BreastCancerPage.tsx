@@ -72,11 +72,13 @@ const BreastCancerPage = () => {
 
   /* ── helpers ── */
   const resetState = () => {
+    setPatientName("");
     setFile(null);
     setPreview(null);
     setResult(null);
     setError(null);
     setUploadProgress(0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const processFile = useCallback((f: File) => {

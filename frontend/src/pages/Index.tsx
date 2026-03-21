@@ -23,7 +23,7 @@ const steps = [
 ];
 
 const stats = [
-  { value: "5+", label: "Disorders Covered" },
+  { value: "4+", label: "Disorders Covered" },
   { value: "95%", label: "Model Accuracy" },
   { value: "10K+", label: "Screenings Done" },
   { value: "24/7", label: "Available Access" },
