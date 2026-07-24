@@ -16,16 +16,17 @@
 
 ## ✨ Key Features
 
-*   **Welcome Splash Experience:** A calming, animated entry point with brand-consistent lavender and pink aesthetics.
+*   **Welcome Splash Experience:** A calming, animated entry point with brand-consistent lavender and pink aesthetics, complete with a dynamic snowflake effect.
 *   **Symptom-Based Pre-Screening:** Intelligent triage layer that suggests specific disease models based on user-reported symptoms.
-*   **AI-Powered Diagnostics:** Five distinct ML models for PCOS, Anemia, Thyroid, Osteoporosis, and Breast Cancer risk assessment.
-*   **Clinical Assessment Reports:** Professional PDF report generation including patient identification, risk levels, and tailored medical advice.
+*   **AI-Powered Diagnostics:** Five distinct ML models for PCOS, Anemia, Thyroid, Osteoporosis, and Breast Cancer risk assessment. Each predictor features a "Clear" button for easy form resets.
+*   **Clinical Assessment Reports:** Professional PDF report generation including patient identification, risk levels, and tailored medical advice, featuring a visual report box for disease probabilities.
 *   **Responsive Dashboard:** A modern interface designed specifically for women's health indicators.
 
 ### Backend
 * **Framework:** Python with Flask
 * **Architecture:** Microservices-based model prediction services
 * **CORS:** Flask-CORS for cross-origin resource sharing
+* **Containerization:** Docker & Docker Compose
 
 ## 📦 Project Structure
 
@@ -34,22 +35,38 @@ The project is divided into a frontend web application and multiple independent 
 ```text
 sheHealth-ai/
 ├── frontend/                              # React/Vite web application
+├── docker-compose.yml                     # Docker composition for all services
 └── backend/
     ├── anemia-backend-model/              # Flask service for Anemia prediction (Port 5003)
-    ├── breast-cancer-backend-model/       # Flask service for Breast Cancer prediction
-    ├── osteoporosis-backend-model/        # Flask service for Osteoporosis prediction
-    ├── pcos-backend-model/                # Flask service for PCOS prediction
-    └── thyroid-backend-model/             # Flask service for Thyroid prediction
+    ├── breast-cancer-backend-model/       # Flask service for Breast Cancer prediction (Port 5004)
+    ├── osteoporosis-backend-model/        # Flask service for Osteoporosis prediction (Port 5002)
+    ├── pcos-backend-model/                # Flask service for PCOS prediction (Port 5005)
+    └── thyroid-backend-model/             # Flask service for Thyroid prediction (Port 5001)
 ```
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### 🐳 Using Docker Compose (Recommended)
+
+The easiest way to run the entire application at once is with Docker:
+
+1. Ensure [Docker](https://docs.docker.com/get-docker/) is installed.
+2. From the project root directory, run:
+   ```bash
+   docker-compose up --build
+   ```
+3. Access the application:
+   * **Frontend:** `http://localhost:8080` (or the mapped React port depending on setup)
+   * **Backend APIs:** Running on ports `5001` through `5005`
+
+### 🛠 Manual Setup
+
+#### Prerequisites
 * [Node.js](https://nodejs.org/) (v16 or higher recommended)
 * [Python 3.8+](https://www.python.org/)
 * `pip` package manager
 
-### Frontend Setup
+#### Frontend Setup
 
 1. Navigate to the frontend directory:
    ```bash
@@ -68,7 +85,7 @@ sheHealth-ai/
    npm run build
    ```
 
-### Backend Setup (Example: Anemia Model)
+#### Backend Setup (Example: Anemia Model)
 
 Each model runs as its own standalone Flask service. 
 
@@ -92,7 +109,7 @@ Each model runs as its own standalone Flask service.
    ```bash
    python app.py
    ```
-   *Note: The Anemia service runs on `http://0.0.0.0:5003`.*
+   *Note: The Anemia service runs on `http://0.0.0.0:5003`. Other services run on: Thyroid (`5001`), Osteoporosis (`5002`), Breast Cancer (`5004`), and PCOS (`5005`).*
 
 Repeat these steps for the other model directories (`breast-cancer`, `osteoporosis`, `pcos`, `thyroid`) as needed.
 
@@ -120,7 +137,7 @@ Repeat these steps for the other model directories (`breast-cancer`, `osteoporos
     ```json
     {
       "Gender": 1,
-      "Hemoglobin": 12.6
+      "Hemoglobin": 12.6,
       "MCH": 29.0,
       "MCHC": 34.0,
       "MCV": 85.0

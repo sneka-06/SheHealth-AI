@@ -56,7 +56,7 @@ const riskConfig = {
 const AnemiaPage = () => {
   // --- State ---
   const [patientName, setPatientName] = useState("");
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState("0");
   const [hemoglobin, setHemoglobin] = useState("");
   const [mch, setMch] = useState("");
   const [mchc, setMchc] = useState("");
@@ -177,7 +177,7 @@ const AnemiaPage = () => {
 
   const handleClear = () => {
     setPatientName("");
-    setGender("");
+    setGender("0");
     setHemoglobin("");
     setMch("");
     setMchc("");
@@ -277,7 +277,6 @@ const AnemiaPage = () => {
                 </SelectTrigger>
                 <SelectContent className="bg-card border-border z-50">
                   <SelectItem value="0">Female</SelectItem>
-                  <SelectItem value="1">Male</SelectItem>
                 </SelectContent>
               </Select>
               {errors.gender && (

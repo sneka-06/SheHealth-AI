@@ -44,7 +44,7 @@ interface DropdownField {
 }
 
 const demographicFields: DropdownField[] = [
-  { key: "Gender", label: "Gender", options: ["Male", "Female"] },
+  { key: "Gender", label: "Gender", options: ["Female"], defaultValue: "Female" },
   {
     key: "Hormonal Changes",
     label: "Hormonal Changes",

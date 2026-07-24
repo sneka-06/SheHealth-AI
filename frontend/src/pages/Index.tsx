@@ -6,7 +6,7 @@ import {
   Stethoscope
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-medical.jpg";
+import heroImage from "@/assets/new-image.png";
 
 const disorders = [
   { title: "PCOS Detection", desc: "Polycystic Ovary Syndrome screening using hormonal and metabolic indicators.", icon: <HeartPulse className="w-6 h-6" />, path: "/pcos", color: "from-primary to-primary/70" },

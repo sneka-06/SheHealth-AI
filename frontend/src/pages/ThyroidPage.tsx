@@ -77,7 +77,7 @@ const ThyroidPage = () => {
   // --- State ---
   const [patientName, setPatientName] = useState("");
   const [age, setAge] = useState("");
-  const [sex, setSex] = useState("");
+  const [sex, setSex] = useState("0");
   const [tsh, setTsh] = useState("");
   const [tt4, setTt4] = useState("");
   const [t4u, setT4u] = useState("");
@@ -215,7 +215,7 @@ const ThyroidPage = () => {
   const handleClear = () => {
     setPatientName("");
     setAge("");
-    setSex("");
+    setSex("0");
     setTsh("");
     setTt4("");
     setT4u("");
@@ -345,7 +345,6 @@ const ThyroidPage = () => {
                   </SelectTrigger>
                   <SelectContent className="bg-card border-border z-50">
                     <SelectItem value="0">Female</SelectItem>
-                    <SelectItem value="1">Male</SelectItem>
                   </SelectContent>
                 </Select>
                 {errors.sex && (
